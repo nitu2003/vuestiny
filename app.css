@@ -1,0 +1,120 @@
+html {
+    background-color: #444;
+    font-family: Helvetica;
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+}
+
+#app {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+    max-width: 550px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#footer {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.category {
+    width: 100%;
+    height: auto;
+    display: grid;
+    /* grid-template-columns: 1fr 2fr; */
+
+    padding-bottom: 5px;
+
+    background-color: #333;
+}
+
+.category h2 {
+    margin: 0.3em;
+}
+
+.category .category-title {
+    grid-column: 1 / span 2;
+    background-color: #222;
+}
+
+.category .item-title {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.category .item-title .small {
+    font-size: .6em;
+    font-weight: bold;
+    margin: 0;
+}
+
+.category .item-content {
+    font-size: 1.2em;
+    /* line-height: 1.2em; */
+    font-weight: normal;
+    margin: auto;
+}
+
+.category .item-info {
+    grid-column: 1 / span 2;
+    font-size: 1em;
+}
+
+.category .item-content .desc {
+    font-size: .8em;
+}
+
+.category > .split-1 {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    height: 100%;
+}
+.category > .split-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    height: 100%;
+}
+.category > .split-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    height: 100%;
+}
+.category > .split-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 100%;
+    height: 100%;
+    
+}
+.category > .split-6 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    width: 100%;
+    height: 100%;
+}
+.category > .split-7 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    width: 100%;
+    height: 100%;
+}
+
+.category > .split-1, .split-2, .split-3, .split-4, .split-6, .split-7 > span {
+    font-size: .8em!important;
+}
+
+.category > .split-1, .split-2, .split-3, .split-4, .split-6, .split-7 > span ::before {
+    content: '';
+
+}
+
+.category img {
+    width: 32px;
+    height: auto;
+    padding: 5px;
+}

@@ -1,0 +1,16 @@
+@font-face {
+    font-family: "./font/Destiny Keys";
+    src: url("./font/DestinyKeys.eot");
+    src: url("./font/DestinyKeys.woff2") format("woff2"),
+        url("./font/DestinyKeys.woff") format("woff"),
+        url("./font/DestinyKeys.ttf") format("truetype"),
+        url("./font/DestinyKeys.svg") format("svg");
+    font-weight: 500;
+    font-style: normal;
+}
+
+.destiny-key {
+    font-family: "Destiny Keys";
+    font-weight: 500;
+    font-style: normal;
+}
