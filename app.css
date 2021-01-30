@@ -57,9 +57,10 @@ html {
     margin: auto;
 }
 
-.category .item-info {
+.category .category-subtitle {
     grid-column: 1 / span 2;
     font-size: 1em;
+    color: #d43;
 }
 
 .category .item-content .desc {
@@ -117,4 +118,25 @@ html {
     width: 32px;
     height: auto;
     padding: 5px;
+}
+
+#debug {
+    width: 20vw;
+    height: auto;
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    margin: 1em;
+
+    background-color: #555;
+}
+
+#debug a {
+    display: block;
+    margin: .1em;
+    color: white;
+    font-size: 1.2em;
+    text-decoration: none;
+    background-color: #333;
 }

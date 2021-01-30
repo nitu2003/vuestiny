@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vuestiny</title>
+    <link rel="stylesheet" type="text/css" href="app.css">
+    <link rel="stylesheet" type="text/css" href="font.css">
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div id="app">
+        <div id="raid" class="category">
+            <div class="category-title"><h1>劫掠任务</h1></div>
+            <h2 class="item-info">劫掠任务挑战</h2>
+            <h2 class="item-title">利维坦挑战</h2>
+            <h2 class="item-content">{{ raidChallengeLeviathan }}</h2>
+            <h2 class="item-title">挑战挑战救赎花园</h2>
+            <h2 class="item-content">{{ raidChallengeGardenOfSalvation }}</h2>
+            <h2 class="item-title">过往灾祸挑战</h2>
+            <h2 class="item-content">{{ raidChallengeScourgeOfThePast }}</h2>
+            <h2 class="item-title">悲痛之冠挑战</h2>
+            <h2 class="item-content">{{ raidChallengeCrownOfSorrow }}</h2>
+            <h2 class="item-title">最后遗愿挑战</h2>
+            <h2 class="item-content">{{ raidChallengeLastWish }}</h2>
+            <h2 class="item-info">利维坦信息</h2>
+            <h2 class="item-title">利维坦关卡顺序</h2>
+            <!--<h2 class="item-content">{{ raidOrderLeviathan }}</h2>-->
+            <h2 class="item-content split-4"><span v-for="name in raidOrderLeviathan">{{ name }}</span></h2>
+            <h2 class="item-title">巅峰利维坦武器限制<p class="small">（仅群星之塔与噬界者）</p></h2>
+            <!--<h2 class="item-content">{{ raidWeaponLockLeviathanPrestige }}</h2>-->
+            <h2 class="item-content split-3">
+                <span v-for="icon in raidWeaponLockLeviathanPrestigeIcon" class="destiny-key">{{ icon }}</span>
+                <span v-for="name in raidWeaponLockLeviathanPrestige">{{ name }}</span>
+            </h2>
+            <h2 class="item-title">巅峰利维坦额外修饰<p class="small">（仅群星之塔与噬界者）</p></h2>
+            <h2 class="item-content">{{ raidModificationLeviathan }}</h2>
+        </div>
+        <div id="strike" class="category">
+            <div class="category-title"><h1>先锋精英队</h1></div>
+            <h2 class="item-title">先锋突击焦痕</h2>
+            <h2 class="item-content">{{ strikeSinge }}</h2>
+            <h2 class="item-title">日暮打击地图</h2>
+            <h2 class="item-content">{{ strikeOrealMap }}</h2>
+            <h2 class="item-info" v-if="strikeDoubleReward">本周日暮磨难双倍奖励</h2>
+        </div>
+        <div id="destination" class="category">
+            <div class="category-title"><h1>目的地</h1></div>
+            <h2 class="item-info">月球</h2>
+            <h2 class="item-title">忧愁圣坛掉落</h2>
+            <h2 class="item-content split-7" style="font-size: .8em;">
+                <span v-for="num in weekDayNames">{{ num }}</span>
+                <span v-for="icon in destMoonEventDropIcon" class="destiny-key">{{ icon }}</span>
+                <span v-for="name in destMoonEventDrop">{{ name }}</span>
+            </h2>
+            <h2 class="item-title">徘徊着的梦魇</h2>
+            <h2 class="item-content split-2">
+                <span>名称</span><span>位置</span>
+                <span>{{ destMoonNightmare.name }}</span><span>{{ destMoonNightmare.location }}</span>
+            </h2>
+            <h2 class="item-info">火星</h2>
+            <h2 class="item-title">恶化规程头目</h2>
+            <h2 class="item-content">{{ destMarsProtocol.boss }}</h2>
+            <h2 class="item-title">恶化规程掉落</h2>
+            <h2 class="item-content split-3">
+                <span v-for="icon in destMarsProtocol.dropIcon" class="destiny-key">{{ icon }}</span>
+                <span v-for="name in destMarsProtocol.drop">{{ name }}</span>
+            </h2>
+            <h2 class="item-info">千梦之城</h2>
+            <h2 class="item-title">梦城污染程度</h2>
+            <h2 class="item-content">{{ destDreamingCityInfection }}</h2>
+            <h2 class="item-title">梦城上维挑战</h2>
+            <h2 class="item-content">{{ destDreamingCityAscentdantPlane }}</h2>
+            <h2 class="item-info">锻炉</h2>
+            <h2 class="item-title">每日锻炉</h2>
+            <h2 class="item-content split-7">
+                <span v-for="num in weekDayNames">{{ num }}</span>
+                <span v-for="name in forge">{{ name }}</span>
+            </h2>
+            <h2 class="item-info">万兽园</h2>
+            <h2 class="item-title">万兽园最终头目</h2>
+            <h2 class="item-content">{{ menagerieBoss }}</h2>
+            <h2 class="item-title">万兽园修饰</h2>
+            <h2 class="item-content split-3">
+                <span v-for="mod in menagerieModification">{{ mod }}</span>
+                <span v-for="icon in menagerieModificationIcon"><img :src="icon"/></span>
+            </h2>
+        </div>
+
+        <div id="footer">
+            <div>Vuestiny by <b>Lights Never Fade</b> For ALL GUARDIANS.</div>
+            <div>Licensed under MIT. Serving on GitPages.</div>
+        </div>
+
+        <div v-show="showDebugPanel" id="debug">
+            <h2>Debug Panel</h2>
+            <input type="checkbox" value="ShowDebugPanel" :checked="showDebugPanel">
+            <a href="#" id="weekCurrent">Current Week</a>
+            <a href="#" id="weekAdd">Next Week</a>
+            <a href="#" id="weekRemove">Last Week</a>
+        </div>
+    </div>
+</body>
+<script src="app.js"></script>
+</html>

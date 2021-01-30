@@ -74,14 +74,13 @@ const i18n = {
 // 数据
 const pdvalues = {
     strike_singe: ["虚空(Void)", "电弧(Arc)", "烈日(Solar)"],
-    strike_oreal_map: ["NO DATA"],
+    strike_oreal_map: ["撒瓦森之曲(Savathun's Song)", "暗影之湖(Lake of the Shadow)", "怪奇之地(Strange Terrain)", "溃烂核心(The Festering Core)", "花园世界(A Garden World)", "腐化圣职(The Corrupted)"],
 
     raid_cha_leviathan: ["皇家之池挑战", "夹击大道挑战", "欢愉花园挑战", "王座挑战"],
-    raid_cha_gos: ["迈向巅峰(3)", "零到一百(4)", "残杯冷炙(1)", "串联汇聚(2)"],
+    raid_cha_gos: ["迈向巅峰(3)", "零到一百(4)", "活下去(1)", "串联汇聚(2)"],
     raid_cha_sotp: ["死守战线(1)", "万众一心，只为一人(3)", "各自为政(4)"],
     raid_cha_cos: ["限量祝福(1)", "全面胜利(3)", "双手万能(4)"],
     raid_cha_lastWish: ["禁止进入(4)", "记忆能力(5)", "召唤仪式(1)", "竞技场冠军(2)", "永恒之战(3)"],
-    raid_cha_dsc: ["红色漫游者(1)", "回音复制体(2)", "通才(3)", "四号核心(4)"],
 
     raid_lev_order: ["皇家之池>欢愉花园>夹击大道>王座", "欢愉花园>夹击大道>皇家之池>王座", "夹击大道>皇家之池>欢愉花园>王座", "欢愉花园>皇家之池>夹击大道>王座", "皇家之池>夹击大道>欢愉花园>王座", "夹击大道>欢愉花园>皇家之池>王座"],
     raid_lev_prestige_weapon: ["手枪>斥候步枪>刀剑", "微型冲锋枪>任何武器>榴弹发射器", "任何武器>聚合步枪>聚合步枪", "霰弹枪>自动步枪>火箭发射器", "手持加农炮>狙击步枪>任何武器", "自动步枪>自动步枪>任何武器"],
@@ -151,11 +150,6 @@ const pdvalues = {
             icons.modification.attrition
         ]
     ],
-
-    europa_argumented_obsession: ["新里斯之途", "奈瑟斯", "布雷EXO科技", "技术专家之铁", "无穷之井", "永恒之地", "酋长的崛起", "创造室"],
-    europa_argumented_obsession_from: ["均衡之潮废墟", "星空深渊", "均衡之潮废墟", "星空深渊", "卡德姆斯之脊", "均衡之潮废墟", "卡德姆斯之脊"],
-    europa_exo_challenge: ["模拟：敏捷", "模拟：生存模式", "模拟：保卫"],
-    europa_eclipsed_zone: ["unknown", "unknown", "unknown"],
 }
 
 var currentWeek = function() {
@@ -198,37 +192,32 @@ function predicate(
 const vue = new Vue({
     el: '#app',
     created() {
-        let $createTime = new Date().getTime();
-
         // Debug Information
         console.log("Current Week @ "+currentWeek());
 
         // Settings
-        this.showDebugPanel = false;
+        this.showDebugPanel = true;
 
         // Other
         this.weekDayNames = i18n.other.WeekDayName;
 
         // Vanguard
-        this.strikeSinge = predicate(pdvalues.strike_singe, undefined, 2);
+        this.strikeSinge = predicate(pdvalues.strike_singe);
         this.strikeOrealMap = predicate(pdvalues.strike_oreal_map);
         this.strikeDoubleReward = false;
 
         // Raid: Challenges
+        this.raidChallengeLeviathan = predicate(pdvalues.raid_cha_leviathan);
         this.raidChallengeGardenOfSalvation = predicate(pdvalues.raid_cha_gos);
+        this.raidChallengeScourgeOfThePast = predicate(pdvalues.raid_cha_sotp);
+        this.raidChallengeCrownOfSorrow = predicate(pdvalues.raid_cha_cos);
         this.raidChallengeLastWish = predicate(pdvalues.raid_cha_lastWish);
-        this.raidChallengeDeepStoneCrypt = predicate(pdvalues.raid_cha_dsc);
-        // Raid: Challenges (LEGACY)
-        // this.raidChallengeLeviathan = predicate(pdvalues.raid_cha_leviathan);
-        // this.raidChallengeScourgeOfThePast = predicate(pdvalues.raid_cha_sotp);
-        // this.raidChallengeCrownOfSorrow = predicate(pdvalues.raid_cha_cos);
-        
 
-        // Raid: Leviathan (LEGACY)
-        // this.raidOrderLeviathan = predicate(pdvalues.raid_lev_order).split(">");
-        // this.raidWeaponLockLeviathanPrestige = predicate(pdvalues.raid_lev_prestige_weapon).split(">");
-        // this.raidWeaponLockLeviathanPrestigeIcon = predicate(pdvalues.raid_lev_prestige_weapon_icon).split(">");
-        // this.raidModificationLeviathan = predicate(pdvalues.raid_lev_prestige_modification);
+        // Raid: Leviathan
+        this.raidOrderLeviathan = predicate(pdvalues.raid_lev_order).split(">");
+        this.raidWeaponLockLeviathanPrestige = predicate(pdvalues.raid_lev_prestige_weapon).split(">");
+        this.raidWeaponLockLeviathanPrestigeIcon = predicate(pdvalues.raid_lev_prestige_weapon_icon).split(">");
+        this.raidModificationLeviathan = predicate(pdvalues.raid_lev_prestige_modification);
 
         // Destination: Moon
         this.destMoonEventDrop = [];
@@ -258,30 +247,23 @@ const vue = new Vue({
         this.destDreamingCityInfection = predicate(pdvalues.destination_dreamingcity_infection);
         this.destDreamingCityAscentdantPlane = predicate(pdvalues.destination_dreamingcity_ascendant_plane);
 
-        // Forge (LEGACY)
-        // this.forge = [];
-        // this.forgeIcon = [];
+        // Forge
+        this.forge = [];
+        this.forgeIcon = [];
 
-        // let volundr = predicate(pdvalues.forge);
-        // let bergusia = predicate(pdvalues.forge, undefined, 1);
-        // let izanami = predicate(pdvalues.forge, undefined, 2);
-        // let gofannon = predicate(pdvalues.forge, undefined, 3);
+        let volundr = predicate(pdvalues.forge);
+        let bergusia = predicate(pdvalues.forge, undefined, 1);
+        let izanami = predicate(pdvalues.forge, undefined, 2);
+        let gofannon = predicate(pdvalues.forge, undefined, 3);
 
-        // put(this.forge, volundr, "弗伦德锻炉(1)");
-        // put(this.forge, bergusia, "伯尔古西亚锻炉(4)");
-        // put(this.forge, izanami, "伊邪那美锻炉(3)");
-        // put(this.forge, gofannon, "哥坊诺锻炉(2)");
+        put(this.forge, volundr, "弗伦德锻炉(1)");
+        put(this.forge, bergusia, "伯尔古西亚锻炉(4)");
+        put(this.forge, izanami, "伊邪那美锻炉(3)");
+        put(this.forge, gofannon, "哥坊诺锻炉(2)");
 
-        // Menagerie (LEGACY)
-        // this.menagerieBoss = predicate(pdvalues.menagerie_final_boss);
-        // this.menagerieModification = predicate(pdvalues.menagerie_modification).split(">");
-        // this.menagerieModificationIcon = predicate(pdvalues.menagerie_modification_icon);
-
-        this.europaArgumentedObsession = predicate(pdvalues.europa_argumented_obsession, undefined, 7);
-        this.europaArgumentedObsessionFrom = predicate(pdvalues.europa_argumented_obsession_from, undefined, 7);
-        this.europaExoChallenge = predicate(pdvalues.europa_exo_challenge, undefined, 1);
-        this.europaEclipsedZone = predicate(pdvalues.europa_eclipsed_zone);
-
-        console.log("Rendering time: "+(new Date().getTime() - $createTime)+"ms");
+        // Menagerie
+        this.menagerieBoss = predicate(pdvalues.menagerie_final_boss);
+        this.menagerieModification = predicate(pdvalues.menagerie_modification).split(">");
+        this.menagerieModificationIcon = predicate(pdvalues.menagerie_modification_icon);
     }
 })
